@@ -3,21 +3,30 @@
         <table>
             <thead>
             <h1>
-                <th>Id</th>
-                <th>nombre</th>
-                <th>descripcion</th>
-                <th>foto</th>
+                <th>id     </th>
+                <th>name     </th>
+                <th>status    </th>
+                <th>species   </th>
+                <th>type      </th>
+                <th>gender  </th>
+                
+              
+              
             </h1>
             </thead>
             <br><br>
             <tbody>
-                <tr v-for="posts in posts" :key="posts.Id">
+                <tr v-for="posts in posts" :key="posts.id">
                     <td>{{posts.id}}</td>
-                    <td>{{posts.nombre}}</td>
-                    <td>{{posts.descripcion}}</td>
-                    <td>{{posts.foto}}</td>
-                    <td><button @click="update(posts.Id)">actualizar</button></td>
-        <!--             <td><button @click="delete(delete.Id)">eliminar</button></td> --> 
+                    <td>{{posts.name}}</td>
+                    <td>{{posts.status}}</td>
+                    <td>{{posts.species}}</td>
+                    <td>{{posts.type}}</td>
+                    <td>{{posts.gender}}</td>
+                    <td><button @click="actualizar(posts.id)">actualizar</button></td>
+                    <td><button @click="eliminar(deletetask.id)">eliminar</button></td>
+                    <td><button @click="enviar(posts.id)">enviar</button></td>
+                   
                 </tr>
             </tbody>
             <button class="botoncancelar" >cancelar</button>
@@ -33,9 +42,21 @@ export default{
         }
     },
     methods:{
-        actualizar(Id){
-            this.$router.push("/update/"+Id)
-        }
+        actualizar(id){
+            this.$router.push("/actualizar/"+id)
+        },
+        async eliminar (id){
+            await axios.delete("https://rickandmortyapi.com/api/character").then(response=> {
+
+            })
+        },
+        async enviar (id){
+            await axios.posts("https://rickandmortyapi.com/api").then(response=> {
+
+            })
+
+        },
+        
     },
     computed:{
 
@@ -44,7 +65,7 @@ export default{
 
     },
     mounted(){
-        axios.get().then(respomse=>{
+        axios.get("https://rickandmortyapi.com/api").then(response=>{
             console.log(response.data)
             this.posts=response.data
         })
